@@ -1,7 +1,7 @@
 package main
 
 import (
-	"github.com/Bmixo/ipTest/ipDatabase"
+	"github.com/Bmixo/ipTools/ipDatabase"
 	"testing"
 )
 

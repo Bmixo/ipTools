@@ -4,7 +4,6 @@ import (
 	"encoding/binary"
 	"encoding/json"
 	"errors"
-	"fmt"
 	"golang.org/x/text/encoding/simplifiedchinese"
 	"log"
 	"net"
@@ -256,9 +255,6 @@ func (db *ipDataBase) SearchIP(ip string) (msg []byte,err error){
 				break
 			}
 		}
-
-
-		fmt.Println()
 
 	}
 	if isChina{
