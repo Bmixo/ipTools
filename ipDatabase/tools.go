@@ -163,6 +163,9 @@ func (db *ipDataBase) getRecord(index int)  (country ,area[]byte){
 
 }
 func (db *ipDataBase) getAddr(ip string) (string,string ,string,error) {
+	if len(ip)==0{
+		return "","","",errors.New("ip invalid")
+	}
 	ipAddr, err := net.ResolveIPAddr("ip4", ip)
 	if err != nil {
 		return "","","",errors.New("ip invalid")

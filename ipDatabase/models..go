@@ -3,16 +3,16 @@ package ipDatabase
 import "os"
 
 type msgSuss struct {
-	Ip       string `json:ip`
-	Country  string `json:country`
-	Province string `json:province`
-	City     string `json:city`
-	County   string `json:county`
-	Isp      string `json:isp`
-	Area     string `json:area`
+	Ip       string `json:"ip"`
+	Country  string `json:"country"`
+	Province string `json:"province"`
+	City     string `json:"city"`
+	County   string `json:"county"`
+	Isp      string `json:"isp"`
+	Area     string `json:"area"`
 }
 type msgError struct {
-	Error string `json:error`
+	Error string `json:"error"`
 }
 type ipDataBase struct {
 	fp *os.File
