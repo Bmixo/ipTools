@@ -41,6 +41,5 @@ func main(){
 		c.String(200, string(msgs))
 	})
 	r.Run(address)
-
 }
 
