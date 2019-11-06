@@ -1,5 +1,6 @@
 # ipTools
 纯真ip数据库go语言解析器
+1.帮助
 ```
 输入例示:
   -i string
@@ -7,8 +8,16 @@
   -w string
         web port
 ```
+2.演示:
+```
+运行：
+go run main.go -i 119.147.146.189
+输出：
+{"ip":"119.147.146.189","country":"中国","province":"广东省","city":"广东市","county":"广东县","isp":"","area":"中国广东省东莞市省东莞市"}
 
-函数测试：
+```
+
+3.函数测试：
 ```cassandraql
 goos: windows
 goarch: amd64
