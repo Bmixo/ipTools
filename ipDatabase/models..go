@@ -8,7 +8,7 @@ type msgSuss struct {
 	Province string `json:province`
 	City     string `json:city`
 	County   string `json:county`
-	Isp      string `json:county`
+	Isp      string `json:isp`
 	Area     string `json:area`
 }
 type msgError struct {

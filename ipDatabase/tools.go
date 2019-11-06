@@ -4,6 +4,7 @@ import (
 	"encoding/binary"
 	"encoding/json"
 	"errors"
+	"fmt"
 	"golang.org/x/text/encoding/simplifiedchinese"
 	"log"
 	"net"
@@ -186,24 +187,82 @@ func (db *ipDataBase) getAddr(ip string) (string,string ,string,error) {
 
 
 func (db *ipDataBase) SearchIP(ip string) (msg []byte,err error){
-	ipaddr,country,area,err:= db.getAddr(ip)
-	if err!=nil{
+
+	isChina        := false
+	seperatorSheng := "省"
+	seperatorShi   :="市"
+	seperatorXian  := "县"
+	seperatorQu    := "区"
+
+	ipaddr,country,area,errOld:= db.getAddr(ip)
+	if errOld!=nil{
 		msg,err = json.Marshal(msgError{
-			Error:err.Error(),
+			Error:errOld.Error(),
 		})
-		return msg,err
+		return msg,errOld
 
 	}
 	msgsuss := msgSuss{
 		Ip:ipaddr,
 	}
-	if _,ok := provinceList[country]  ;ok { //map查询高效
+	//存在 省 标志 xxx省yyyy 中的yyyy
+	if strings.Contains(country,seperatorSheng) {
+		isChina=true
 		msgsuss.Country="中国"
-		msgsuss.Area = "中国"+country+area
+		x := strings.Split(country,seperatorSheng)
+		if len(x)>=1 { //省
+			msgsuss.Province=x[0]+seperatorSheng
+			x = strings.Split(x[0],seperatorShi)
+			if len(x)>=1{ //市
+				msgsuss.City=x[0]+seperatorShi
+				x = strings.Split(x[0],seperatorXian)
+				if len(x)>=1 { //县
+					msgsuss.County=x[0]+seperatorXian
+				}
+			}
 
-	}else{
+
+		}
+
+	}else{//处理内蒙古不带省份类型的和直辖市
+		if strings.Contains(country,"内蒙古"){
+			isChina=true
+			msgsuss.Country="中国"
+			msgsuss.Province="内蒙古"
+			x := strings.Split(country,"内蒙古")
+			if len(x)>=2{
+				msgsuss.City = x[1]
+			}
+
+		}
+
+		for i:=0;i<len(cityDirectly);i++{
+			if strings.Contains(country,cityDirectly[i]){
+				isChina = true
+				msgsuss.Country="中国"
+				x := strings.Split(country,seperatorShi)
+				if len(x)>=1{
+					msgsuss.Province=x[0]+seperatorShi
+					if len(x)>=2{
+						x := strings.Split(x[1],seperatorQu) //处理区
+						if len(x)>1{
+							msgsuss.City=x[0]+seperatorQu
+						}
+					}
+				}
+				break
+			}
+		}
+
+
+		fmt.Println()
+
+	}
+	if isChina{
+		msgsuss.Area=msgsuss.Country+country+area
+	}else{//国外格式
 		msgsuss.Country=country
-		msgsuss.Area = country+area
+		msgsuss.Area=country+area
 	}
 	for i:=0;i<len(IspList);i++{
 		if strings.Contains(area,IspList[i]){

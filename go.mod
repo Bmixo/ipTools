@@ -1,5 +1,3 @@
-module github.com/Bmixo/ipTest
+module github.com/Bmixo/ipTools
 
 go 1.13
-
-require golang.org/x/text v0.3.2
