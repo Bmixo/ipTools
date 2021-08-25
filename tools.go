@@ -8,7 +8,6 @@ import (
 	"log"
 	"net"
 	"os"
-	"path/filepath"
 	"strconv"
 	"strings"
 )
@@ -22,8 +21,7 @@ func init() {
 
 	IpDataBase = &MIpDataBase{}
 
-	workSpace, err := os.Getwd()
-	f, err := os.OpenFile(filepath.Join(workSpace, "./qqwry.dat"), os.O_RDONLY, 0600)
+	f, err := os.OpenFile("./data/qqwry.dat", os.O_RDONLY, 0600)
 	if err != nil {
 		log.Println(err.Error())
 		return

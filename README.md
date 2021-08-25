@@ -1,6 +1,8 @@
 # ipTools
 纯真ip数据库go语言解析器
 
+0.复制qqwry.dat到项目data目录下
+
 1.帮助
 ```
 输入例示:
