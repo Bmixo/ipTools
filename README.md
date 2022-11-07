@@ -1,9 +1,9 @@
 # ipTools
 纯真ip数据库go语言解析器
 
-0.复制qqwry.dat到项目data目录下
+复制qqwry.dat到项目data目录下
 
-1.帮助
+## 1.帮助
 ```
 输入例示:
   -i string
@@ -11,7 +11,8 @@
   -w string
         web port
 ```
-2.演示:
+
+## 2.演示:
 ```
 运行：
 go run main.go -i 119.147.146.189
@@ -20,7 +21,7 @@ go run main.go -i 119.147.146.189
 
 ```
 
-3.函数测试：
+## 3.函数测试：
 ```cassandraql
 goos: windows
 goarch: amd64
